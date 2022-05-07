@@ -12,6 +12,8 @@ start = berserk.utils.to_millis(datetime(2018, 12, 8))
 
 end = berserk.utils.to_millis(datetime(2018, 12, 9))
 
-games = client.games.export_by_player('LeelaChess', since=start, until=end, max=300)
-print(len(list(games)))
-print("yay.")
+# games = client.games.export_by_player('wagenrace')
+games = client.games.export_by_player('j2020')
+games = [g for g in games if g["perf"] == "rapid"]
+print(len(games))
+
