@@ -1,0 +1,6 @@
+berserk
+pandas
+pyyaml
+matplotlib
+ipykernel
+numpy
