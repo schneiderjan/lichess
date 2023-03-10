@@ -16,7 +16,7 @@ class LichessClient:
 
     def _load_records(self, start: datetime, end: datetime, user_name: str):
         game_data = self.client.games.export_by_player(
-            user_name, since=start, until=end, max=500
+            username=user_name, since=start, until=end, max=500
         )
         # exclude other game modes than standard
         games = [game for game in game_data if game["variant"] == "standard"]

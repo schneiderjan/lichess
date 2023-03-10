@@ -9,5 +9,8 @@ def is_user_white(players: dict, user_name: str) -> bool:
         bool: True if user played the white pieces, False otherwise.
     """    
     white = players.get("white", None)
-    return white and white["user"]["name"] == user_name
+    if white and white.get("aiLevel", None) == None:
+        return white["user"]["name"] == user_name
+    
+    return False
     
