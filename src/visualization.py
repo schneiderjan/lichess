@@ -11,7 +11,7 @@ def _rank_moves(moves: List[str]) -> set:
     top_3 = {key: val for key, val in sorted(ranks.items(), key=lambda item: item[1], reverse=True)[:3]}
     return top_3
 
-def plot_top_3_first_moves(white_moves: List[str], black_moves: List[str], filepath: str = "top_3_viz.png"):
+def plot_top_3_first_moves(white_moves: List[str], black_moves: List[str], filepath: str = "top_3_moves_viz.png"):
     """Plots the top 3 first moves of each color and stores to disk.
 
     Args:
