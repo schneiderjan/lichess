@@ -1,6 +1,8 @@
-import matplotlib.pyplot as plt
 from typing import List
+
+import matplotlib.pyplot as plt
 import numpy as np
+
 
 def _rank_moves(moves: List[str]) -> set:
     # rank top moves.
@@ -19,6 +21,7 @@ def plot_top_3_first_moves(white_moves: List[str], black_moves: List[str], filep
         black_moves (List[str]): Collection of first black move in chess annotation.
         filepath (str): Path on disk to store figure. Defaults to `top_3_viz.png`.
     """ 
+    groups = ["white", "black"]
     top_3_white = _rank_moves(white_moves)
     # # fill dummy data because I seem to be playing only 
     # top_3_white["O-O"] = 0
@@ -32,9 +35,21 @@ def plot_top_3_first_moves(white_moves: List[str], black_moves: List[str], filep
     black_values = list(top_3_black.values())
     black_labels = list(top_3_black.keys())
 
+    N = len(white_values)
     bar_width = 0.35
-    r1 = np.arange(len(white_values))
-    r2 = [x + bar_width for x in r1]
+
+    bar_pos = 0
+    r1 = []
+    for _ in range(N):
+        bar_pos = bar_pos + bar_width
+        r1.append(bar_pos)
+    
+    r2 = []
+    # add a small offset for the next group
+    bar_pos= bar_pos + 0.35
+    for _ in range(N):
+        bar_pos = bar_pos + bar_width
+        r2.append(bar_pos)
 
     # Create white bars
     plt.bar(r1, white_values, color='white', width=bar_width, edgecolor='black', label='White')
@@ -43,8 +58,9 @@ def plot_top_3_first_moves(white_moves: List[str], black_moves: List[str], filep
     plt.bar(r2, black_values, color='black', width=bar_width, edgecolor='black', label='Black')
 
     # Add xticks on the middle of the group bars
-    plt.xlabel('Color')
-    plt.xticks([r + bar_width / 2 for r in range(len(white_values))], white_labels)
+    plt.xlabel('Color - Left group: white, right group: black')
+    combined_positions = r1 + r2
+    plt.xticks([r for r in combined_positions], white_labels + black_labels)
 
     # Add ylabel
     plt.ylabel('Count')
